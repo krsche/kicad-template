@@ -21,13 +21,14 @@ __Features:__
      ```bash
      ./bootstrap.sh <OPTIONAL__PROJECT_NAME>
      ```
-3. Commit the changes after running the `bootstrap.sh` script
+3. Change the `README.md`
+4. Update the `LICENSE`
+5. Commit the changes after running the `bootstrap.sh` script
      ```bash
      git add --all
-     git commit -m "feat: changed file names and refs to prj name"
+     git commit -m "feat: bootstrap"
      git push
      ```
-4. Change the `README.md` and enjoy KiCad w/ GitHub :)
 
 ## Releasing
 1. Observe the GH Actions already run on the commit you want to release.
