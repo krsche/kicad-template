@@ -13,6 +13,8 @@ __Features:__
 1. Create and clone a new GitHub repo for your project and select this as the template for it.
      ```bash
      gh repo create --clone --template krsche/kicad-template YOUR_REPO_NAME
+     cd YOUR_REPO_NAME
+     git submodule update --init --recursive
      ```
 2. Run the `bootstrap.sh` script to change the name of the project files and references to your projects name. 
      Either specify the name by providing it as the first argument, or specify nothing and it will use the parent folder (repo) name.
