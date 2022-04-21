@@ -9,12 +9,12 @@ CURRENT_NAME=`find $ABS -maxdepth 1 -name *.kicad_pro -exec basename {} \; | cut
 NEW_NAME=${1:-$FOLDER}
 
 # Determine what to do
-FILES_TO_RENAME=`find $ABS -maxdepth 1 -name "$CURRENT_NAME.*"`
-echo -e "Files to rename: \n$FILES_TO_RENAME"
-
 FILES_FOR_TEXT_REPLACE_WITH_CODE=`grep -IRH --exclude-dir=.git --exclude-dir=kicad-library --exclude=README.md "$CURRENT_NAME" $ABS`
-echo
 echo -e "Replacing '$CURRENT_NAME' --> '$NEW_NAME' in files: \n$FILES_FOR_TEXT_REPLACE_WITH_CODE"
+
+FILES_TO_RENAME=`find $ABS -maxdepth 1 -name "$CURRENT_NAME.*"`
+echo
+echo -e "Files to rename: \n$FILES_TO_RENAME"
 
 # Ask permission
 echo
@@ -27,14 +27,14 @@ else
 fi
 
 # Do It!
-# Rename files 
-for file in $FILES_TO_RENAME; do
-    FILE_EXTENTION=${file##*.}
-    mv $file $ABS/$NEW_NAME.$FILE_EXTENTION
-done
-
 # Replace text in files
 while IFS= read -r line; do
     file=`echo $line | cut -f1 -d ':'`
     sed -i "s/$CURRENT_NAME/$NEW_NAME/g" $file
 done <<< "$FILES_FOR_TEXT_REPLACE_WITH_CODE"
+
+# Rename files 
+for file in $FILES_TO_RENAME; do
+    FILE_EXTENTION=${file##*.}
+    mv $file $ABS/$NEW_NAME.$FILE_EXTENTION
+done
