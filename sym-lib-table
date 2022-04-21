@@ -1,5 +1,5 @@
 (sym_lib_table
-  (lib (name "krsche-general")(type "KiCad")(uri "${KIPRJMOD}/kicad-library/symbols/general.kicad_sym")(options "")(descr ""))
-  (lib (name "krsche-3rd-party-connectors")(type "KiCad")(uri "${KIPRJMOD}/kicad-library/3rd-party/symbols/connectors.kicad_sym")(options "")(descr ""))
-  (lib (name "krsche-connectors")(type "KiCad")(uri "${KIPRJMOD}/kicad-library/symbols/connectors.kicad_sym")(options "")(descr ""))
+  (lib (name "kicad-library-general")(type "KiCad")(uri "${KIPRJMOD}/kicad-library/symbols/general.kicad_sym")(options "")(descr ""))
+  (lib (name "kicad-library-3rd-party-connectors")(type "KiCad")(uri "${KIPRJMOD}/kicad-library/3rd-party/symbols/connectors.kicad_sym")(options "")(descr ""))
+  (lib (name "kicad-library-connectors")(type "KiCad")(uri "${KIPRJMOD}/kicad-library/symbols/connectors.kicad_sym")(options "")(descr ""))
 )

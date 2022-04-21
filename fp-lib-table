@@ -1,4 +1,4 @@
 (fp_lib_table
-  (lib (name "krsche")(type "KiCad")(uri "${KIPRJMOD}/kicad-library/footprints")(options "")(descr ""))
-  (lib (name "krsche-3rd-party")(type "KiCad")(uri "${KIPRJMOD}/kicad-library/3rd-party/footprints")(options "")(descr ""))
+  (lib (name "kicad-library")(type "KiCad")(uri "${KIPRJMOD}/kicad-library/footprints")(options "")(descr ""))
+  (lib (name "kicad-library-3rd-party")(type "KiCad")(uri "${KIPRJMOD}/kicad-library/3rd-party/footprints")(options "")(descr ""))
 )

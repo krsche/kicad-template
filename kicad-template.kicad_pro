@@ -387,11 +387,11 @@
         "microvia_drill": 0.1,
         "name": "jlcpcb",
         "nets": [
-          "12V",
-          "CAN+",
-          "CAN-",
-          "CASE",
-          "GND"
+          "GND",
+          "Net-(C1-Pad1)",
+          "Net-(D1-Pad2)",
+          "unconnected-(C1-Pad2)",
+          "unconnected-(C1-Pad4)"
         ],
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "schematic_color": "rgba(0, 0, 0, 0.000)",
