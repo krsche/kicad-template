@@ -36,7 +36,7 @@ jobs:
       - name: Kibot
         uses: INTI-CMNB/KiBot@v1_k6
         with:
-          config: .kibot/${{ matrix.config }}.kibot.yml
+          config: kicad-library/.kibot/${{ matrix.config }}.kibot.yml
           schema: ${{ env.SCHEMATICS }}
           board: ${{ env.BOARDS }}
           dir: ${{ env.DIR }}
