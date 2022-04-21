@@ -79,5 +79,5 @@ jobs:
           OUTPUTS_NAME=${GITHUB_REPOSITORY##*/}-$GITHUB_REF_NAME-outputs.zip
           cd outputs && zip -r ../$OUTPUTS_NAME *; cd ..
           tree || :
-          gh release create --generate-notes --prerelease --repo $GITHUB_REPOSITORY --discussion-category General $GITHUB_REF_NAME \
+          gh release create --generate-notes --repo $GITHUB_REPOSITORY --discussion-category General $GITHUB_REF_NAME \
             $OUTPUTS_NAME checks-prod/*
