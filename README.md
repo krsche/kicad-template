@@ -26,3 +26,9 @@ __Features:__
      git push
      ```
 4. Change the `README.md` and enjoy KiCad w/ GitHub :)
+
+## Releasing
+1. Observe the GH Actions already run on the commit you want to release.
+     Everything looks good? --> Continue
+2. Tag the commit in the format `v1.0.0` and push the tag
+3. Observe the new GH Action that runs. It will re-run the KiBot actions and create a new GH Release with the outputs from KiBot.
