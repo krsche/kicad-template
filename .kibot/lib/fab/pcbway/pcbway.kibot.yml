@@ -1,0 +1,71 @@
+outputs:
+  - name: gerbers - pcbway
+    type: gerber
+    dir: fab/pcbway
+    options:
+      # general
+      create_gerber_job_file: true
+      subtract_mask_from_silk: true
+      plot_footprint_refs: true
+      plot_footprint_values: true
+      force_plot_invisible_refs_vals: false
+      disable_aperture_macros: false
+      # dnf_filter:
+      # gerber_job_file:
+      # inner_extension_pattern:
+      # output:
+      # uppercase_extensions:
+      # variant:
+
+      # board dependent
+      tent_vias: true # cover the vias with soldermask
+
+      # fab house dependent
+      gerber_precision: 4.6
+      use_aux_axis_as_origin: false
+      use_protel_extensions: true
+      use_gerber_x2_attributes: false
+      use_gerber_net_attributes: false
+      exclude_edge_layer: true
+    layers:
+      - copper
+      - Edge.Cuts
+      - F.Paste
+      - B.Paste
+      - F.Silkscreen
+      - B.Silkscreen
+      - F.Mask
+      - B.Mask
+
+  - name: drill - pcbway
+    type: excellon
+    dir: fab/pcbway
+    options:
+      # general
+      report: "/%f-%i.%x" # not generated unless uncommented
+      # map: ps # not generated unless uncommented
+      # npth_id:
+      # pth_id:
+      # output:
+
+      # fab house dependent
+      left_digits: 2
+      right_digits: 4
+      metric_units: false
+      minimal_header: true
+      mirror_y_axis: false
+      pth_and_npth_single_file: false
+      route_mode_for_oval_holes: true
+      use_aux_axis_as_origin: false
+      zeros_format: SUPPRESS_LEADING
+
+  - name: compress
+    type: compress
+    dir: fab/pcbway
+    options:
+      format: ZIP
+      output: "%f-%r-fab-pcbway.%x"
+      files:
+        - filter: "^(?!.*(gbrjob|txt)$).*$" # everything but *.gbrjob and *.txt
+          source: fab/pcbway/*
+          dest: .

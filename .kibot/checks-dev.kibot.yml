@@ -1,0 +1,24 @@
+kibot:
+  version: 1
+
+preflight:
+  run_erc: true
+  run_drc: true
+  check_zone_fills: true
+  fill_zones: true
+  erc_warnings: false
+  ignore_unconnected: true
+  set_text_variables:
+    - variable: title
+      command: "echo $GITHUB_REPOSITORY"
+    - variable: version
+      command: "echo $GITHUB_REF_NAME | cut -c -9"
+    - variable: author
+      command: "git show -s --format=%an"
+    - variable: commit_date
+      command: "git show -s --format=%ci | sed 's/-/./g'"
+    - variable: commit_id
+      command: "git show -s --format=%h"
+
+import:
+  - file: common.kibot.yml

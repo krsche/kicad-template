@@ -1,0 +1,4 @@
+outputs:
+  - name: ibom
+    dir: bom
+    type: ibom

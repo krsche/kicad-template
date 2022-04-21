@@ -1,0 +1,4 @@
+outputs:
+  - name: 3d - step
+    dir: 3d
+    type: step

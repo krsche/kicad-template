@@ -1,0 +1,90 @@
+name: main
+
+on:
+  push:
+    branches: [main, feat/*, bug/*]
+    tags: v*
+    paths-ignore:
+      - "docs/**"
+      - "**.md"
+  pull_request:
+    branches: [main]
+    paths-ignore:
+      - "docs/**"
+      - "**.md"
+  workflow_dispatch:
+
+env:
+  SCHEMATICS: "*.kicad_sch"
+  BOARDS: "*.kicad_pcb"
+  DIR: .outputs
+
+jobs:
+  kibot:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        config: [checks-dev, checks-prod, outputs]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          lfs: true
+
+      - name: Checkout Submodules
+        env:
+          SSH_KEY_SUBMOD_KICAD_LIBRARY: ${{ secrets.ORG__KICAD_LIBRARY_DEPLOY_KEY_READ }}
+        run: |
+          eval `ssh-agent -s`
+          echo "${SSH_KEY_SUBMOD_KICAD_LIBRARY}" | ssh-add -
+          git submodule update --init --recursive
+
+      - name: Kibot
+        uses: INTI-CMNB/KiBot@v1_k6
+        with:
+          config: .kibot/${{ matrix.config }}.kibot.yml
+          schema: ${{ env.SCHEMATICS }}
+          board: ${{ env.BOARDS }}
+          dir: ${{ env.DIR }}
+
+      # not yet working as intended
+      # kibot modifies the files, even though zone-fills are up-to-date
+      # - name: Check if PCBs were not modified (zones-fills are up-to-date)
+      #   if: matrix.config == 'checks-prod'
+      #   run: git diff --exit-code *.kicad_pcb
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.config }}
+          path: ${{ env.DIR }}/**
+
+  release:
+    needs: kibot
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download Artifacts (outputs)
+        uses: actions/download-artifact@v2
+        with:
+          name: outputs
+          path: outputs
+
+      - name: Download Artifacts (checks-prod)
+        uses: actions/download-artifact@v2
+        with:
+          name: checks-prod
+          path: checks-prod
+
+      - name: Create Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          OUTPUTS_NAME=${GITHUB_REPOSITORY##*/}-$GITHUB_REF_NAME-outputs.zip
+          cd outputs && zip -r ../$OUTPUTS_NAME *; cd ..
+          tree || :
+          gh release create --generate-notes --prerelease --repo $GITHUB_REPOSITORY --discussion-category General $GITHUB_REF_NAME \
+            $OUTPUTS_NAME checks-prod/*

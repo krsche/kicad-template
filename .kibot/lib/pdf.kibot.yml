@@ -1,0 +1,20 @@
+outputs:
+  - name: pdf - schematic
+    type: pdf_sch_print
+    options:
+      frame: true
+      monochrome: false
+
+  - name: pdf - pcb
+    type: pdf_pcb_print
+    options:
+      drill_marks: full
+      monochrome: false
+      plot_sheet_reference: true # title block
+      scaling: 0 # 0 = autoscaling
+      separated: true # print layers in separated pages
+      output: "%f-%r-pcb.%x"
+    layers:
+      - copper
+      - technical
+      - Edge.Cuts

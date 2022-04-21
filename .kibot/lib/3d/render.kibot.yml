@@ -1,0 +1,57 @@
+outputs:
+  - name: 3d - render (template)
+    type: render_3d
+    dir: 3d
+    run_by_default: false
+    options:
+      height: 720
+      width: 1280
+      orthographic: true # flat
+
+  - name: 3d - render (top)
+    type: render_3d
+    dir: 3d
+    extends: 3d - render (template)
+    options:
+      view: top
+      output: "%f-top.%x"
+
+  - name: 3d - render (bottom)
+    type: render_3d
+    dir: 3d
+    extends: 3d - render (template)
+    options:
+      view: bottom
+      output: "%f-bottom.%x"
+
+  - name: 3d - render (right)
+    type: render_3d
+    dir: 3d
+    extends: 3d - render (template)
+    options:
+      view: right
+      output: "%f-right.%x"
+
+  - name: 3d - render (left)
+    type: render_3d
+    dir: 3d
+    extends: 3d - render (template)
+    options:
+      view: left
+      output: "%f-left.%x"
+
+  - name: 3d - render (front)
+    type: render_3d
+    dir: 3d
+    extends: 3d - render (template)
+    options:
+      view: front
+      output: "%f-front.%x"
+
+  - name: 3d - render (rear)
+    type: render_3d
+    dir: 3d
+    extends: 3d - render (template)
+    options:
+      view: rear
+      output: "%f-rear.%x"

@@ -1,0 +1,21 @@
+kibot:
+  version: 1
+
+preflight:
+  # filters:
+  #   - error:
+  #     error_number:
+  #     filter:
+  #     regex:
+
+global:
+  output: "%f-%r-%i.%x"
+  # variant: 'default'
+  units: millimeters
+  out_dir: .outputs
+  # date_format:
+  # time_format:
+  pcb_material: FR4
+  solder_mask_color: green
+  silk_screen_color: white
+  pcb_finish: ENIG
