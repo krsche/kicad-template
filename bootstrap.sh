@@ -30,7 +30,7 @@ fi
 # Replace text in files
 while IFS= read -r line; do
     file=`echo $line | cut -f1 -d ':'`
-    sed -i "s/$CURRENT_NAME/$NEW_NAME/g" $file
+    sed -i '' -e "s/$CURRENT_NAME/$NEW_NAME/g" $file
 done <<< "$FILES_FOR_TEXT_REPLACE_WITH_CODE"
 
 # Rename files 
