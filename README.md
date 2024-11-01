@@ -7,6 +7,7 @@ __Features:__
 - GitHub workflows using kibot for outputs (gerbers, pdfs, renders, etc.) and performing checks (erc, drc)
 - `bootstrap.sh` script for quickly renaming your project (no need for importing this as an "OEM - KiCad Template")
 - `.gitattributes` and `.gitignore` for KiCad
+- Custom Design Rules according to [JLCPCB Capabilities](https://jlcpcb.com/capabilities/pcb-capabilities); modified version of https://github.com/labtroll/KiCad-DesignRules
 
 
 ## Getting Started

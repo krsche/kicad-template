@@ -17,7 +17,7 @@ on:
 env:
   SCHEMATICS: "*.kicad_sch"
   BOARDS: "*.kicad_pcb"
-  DIR: .outputs
+  DIR: generated_outputs
 
 jobs:
   kibot:
@@ -34,12 +34,16 @@ jobs:
           submodules: true
 
       - name: Kibot
-        uses: INTI-CMNB/KiBot@v1_k6
+        uses: INTI-CMNB/KiBot@v2_k8
         with:
           config: kicad-library/.kibot/${{ matrix.config }}.kibot.yml
-          schema: ${{ env.SCHEMATICS }}
-          board: ${{ env.BOARDS }}
+          # v2 does not support wildcards in filenames, if schema or board is not specified
+          # kibot will use the first .kicad_sch or .kicad_pcb file found. This is intended
+          # here as there is only one file of each type in the repository.
+          #schema: ${{ env.SCHEMATICS }}
+          #board: ${{ env.BOARDS }}
           dir: ${{ env.DIR }}
+          verbose: 1
 
       # not yet working as intended
       # kibot modifies the files, even though zone-fills are up-to-date
@@ -48,10 +52,10 @@ jobs:
       #   run: git diff --exit-code *.kicad_pcb
 
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.config }}
-          path: ${{ env.DIR }}/**
+          path: ${{ env.DIR }}
 
   release:
     needs: kibot
@@ -61,13 +65,13 @@ jobs:
       contents: write
     steps:
       - name: Download Artifacts (outputs)
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: outputs
           path: outputs
 
       - name: Download Artifacts (checks-prod)
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: checks-prod
           path: checks-prod
