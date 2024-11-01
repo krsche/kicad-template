@@ -93,9 +93,9 @@
 	(constraint clearance (min 0.1mm))
 )
 
-(rule "Clearance: pad/via to pad/via"
+(rule "Clearance: SMD pad to pad"
 	(layer outer)
 #	(condition "(A.Type == 'Pad' || A.Type == 'Via') && (B.Type == 'Pad' || B.Type == 'Via') && A.Net != B.Net")	
-	(condition "A.isPlated() && B.isPlated() && A.Net != B.Net")
+	(condition "A.isPlated() && B.isPlated() && A.Pad_Type == 'SMD' && B.Pad_Type == 'SMD' && A.Net != B.Net")
 	(constraint clearance (min 0.15mm))
 )
