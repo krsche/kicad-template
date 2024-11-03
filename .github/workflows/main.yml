@@ -31,7 +31,15 @@ jobs:
         uses: actions/checkout@v2
         with:
           lfs: true
-          submodules: true
+
+      - name: Init (private) submodules
+        run: |
+          mkdir -p $HOME/.ssh
+          echo '${{ secrets.KICAD_LIBRARY_DEPLOY_KEY_READ }}' > $HOME/.ssh/ssh.key
+          chmod 600 $HOME/.ssh/ssh.key
+          export GIT_SSH_COMMAND="ssh -i $HOME/.ssh/ssh.key"
+          git submodule update --init --recursive
+          unset GIT_SSH_COMMAND
 
       - name: Kibot
         uses: INTI-CMNB/KiBot@v2_k8
